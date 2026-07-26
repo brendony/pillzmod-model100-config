@@ -57,41 +57,41 @@
         rows = <16>;
         map = <
             /* ==========================================================================
-             * LEFT KEYWELL (1-Column Shifted Realignment)
+             * LEFT KEYWELL (Direct Mapping from Model 100 Wire Traces - Reversed Header)
              * ========================================================================== */
             // Top Row: = 1 2 3 4
-            RC(2, 1) RC(1, 4) RC(0, 5) RC(2, 3) RC(4, 1)
+            RC(2, 0) RC(2, 1) RC(3, 1) RC(2, 4) RC(4, 3)
 
             // Row 2: TAB Q W E R
-            RC(0, 4) RC(0, 6) RC(0, 5) RC(0, 7) RC(4, 2)
+            RC(1, 0) RC(1, 0) RC(4, 0) RC(1, 4) RC(5, 3)
 
             // Row 3: CAPS A S D F
-            RC(0, 3) RC(2, 3) RC(4, 3) RC(1, 3) RC(5, 2)
+            RC(0, 0) RC(2, 2) RC(4, 1) RC(1, 3) RC(5, 4)
 
             // Row 4: LSHFT Z X C V
-            RC(1, 4) RC(1, 2) RC(3, 2) RC(2, 2) RC(0, 1)
+            RC(0, 1) RC(1, 2) RC(3, 1) RC(2, 3) RC(4, 3)
 
             // Bottom Row / Inner Keys: ` LEFT RIGHT \ 5 T G B
-            RC(1, 6) RC(3, 4) RC(3, 5) RC(3, 6) RC(7, 1) RC(7, 3) RC(6, 3) RC(6, 1)
+            RC(0, 1) RC(3, 3) RC(3, 3) RC(3, 2) RC(7, 3) RC(7, 4) RC(6, 4) RC(6, 3)
 
 
             /* ==========================================================================
-             * RIGHT KEYWELL (1-Column Shifted Realignment)
+             * RIGHT KEYWELL (Direct Mapping from Model 100 Wire Traces - Reversed Header)
              * ========================================================================== */
             // Top Row: 7 8 9 0 -
-            RC(3, 1) RC(2, 2) RC(3, 3) RC(1, 4) RC(2, 5)
+            RC(11, 1) RC(13, 0) RC(12, 4) RC(13, 3) RC(13, 4)
 
             // Row 2: Y U I O P
-            RC(0, 5) RC(2, 4) RC(1, 3) RC(3, 2) RC(1, 1)
+            RC(8, 0)  RC(12, 1) RC(10, 0) RC(11, 4) RC(10, 3)
 
             // Row 3: H J K L ;
-            RC(1, 5) RC(1, 4) RC(1, 3) RC(3, 2) RC(2, 1)
+            RC(9, 0)  RC(12, 0) RC(10, 1) RC(11, 3) RC(13, 2)
 
             // Row 4: N M , . /
-            RC(1, 5) RC(3, 3) RC(2, 3) RC(3, 2) RC(1, 1)
+            RC(9, 1)  RC(11, 0) RC(13, 1) RC(12, 3) RC(10, 2)
 
             // Bottom Row / Inner Keys: ' [ ] UP DN RSHFT
-            RC(0, 5) RC(3, 2) RC(0, 3) RC(1, 4) RC(3, 4) RC(0, 1)
+            RC(15, 4) RC(12, 2) RC(10, 2) RC(8, 0)  RC(12, 1) RC(15, 3)
 
 
             /* ==========================================================================
@@ -114,16 +114,16 @@
         diode-direction = "col2row";
 
         col-gpios
-            = <&shifter 0 GPIO_ACTIVE_HIGH> // Col 0 (SR Q0)
-            , <&shifter 1 GPIO_ACTIVE_HIGH> // Col 1 (SR Q1)
-            , <&shifter 2 GPIO_ACTIVE_HIGH> // Col 2 (SR Q2)
-            , <&shifter 3 GPIO_ACTIVE_HIGH> // Col 3 (SR Q3)
-            , <&shifter 4 GPIO_ACTIVE_HIGH> // Col 4 (SR Q4)
-            , <&shifter 5 GPIO_ACTIVE_HIGH> // Col 5 (SR Q5) - Thumb Cluster
-            , <&shifter 6 GPIO_ACTIVE_HIGH> // Col 6 (SR Q6) - Thumb Cluster
+            = <&shifter 0 GPIO_ACTIVE_HIGH> // SR Q0
+            , <&shifter 1 GPIO_ACTIVE_HIGH> // SR Q1
+            , <&shifter 2 GPIO_ACTIVE_HIGH> // SR Q2
+            , <&shifter 3 GPIO_ACTIVE_HIGH> // SR Q3
+            , <&shifter 4 GPIO_ACTIVE_HIGH> // SR Q4
+            , <&shifter 5 GPIO_ACTIVE_HIGH> // SR Q5 (Thumb Cluster)
+            , <&shifter 6 GPIO_ACTIVE_HIGH> // SR Q6 (Thumb Cluster)
             , <&shifter 7 GPIO_ACTIVE_HIGH> // Right Wire 5 Jumper (SR Q7)
-            , <&pro_micro 21 GPIO_ACTIVE_HIGH> // Left Wire 4 Jumper (Col6 / J9 Pin 1)
-            , <&gpio1 1 GPIO_ACTIVE_HIGH>   // Right Wire 11 Jumper (nice!nano P1.01)
+            , <&pro_micro 21 GPIO_ACTIVE_HIGH> // Left Wire 4 Jumper
+            , <&gpio1 1 GPIO_ACTIVE_HIGH>   // Right Wire 11 Jumper
             ;
 
         row-gpios
@@ -142,7 +142,7 @@
             , <&pro_micro 19 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 12
             , <&pro_micro 21 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 13
             , <&pro_micro 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 14
-            , <&pro_micro 16 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Left Wire 9 Jumper (Row0 / J9 Pin 2)
+            , <&pro_micro 16 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Left Wire 9 Jumper
             ;
     };
 };
