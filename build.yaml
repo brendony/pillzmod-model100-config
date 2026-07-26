@@ -5,9 +5,9 @@
 
 ---
 include:
-  - board: nice_nano
+  - board: nice_nano//zmk
     shield: pillzmod_pro
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
-  - board: nice_nano
+  - board: nice_nano//zmk
     shield: settings_reset
