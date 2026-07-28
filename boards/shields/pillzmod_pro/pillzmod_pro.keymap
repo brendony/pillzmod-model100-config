@@ -1,47 +1,41 @@
-/*
- * Copyright (c) 2020 The ZMK Contributors
- *
- * SPDX-License-Identifier: MIT
- */
-
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/bt.h>
 
 / {
-    behaviors {
-        /*
-         * Custom Hold-Tap: Long-Press for Function Key
-         * - Tapping outputs the Number/Symbol
-         * - Holding for > 300ms outputs the Function key
-         */
-        long_fkey: long_fkey {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <300>; // Duration required to count as a "Long Press"
-            bindings = <&kp>, <&kp>;
-        };
-    };
-
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
             bindings = <
-                /* LEFT KEYWELL (Long press top row for F1-F5 & F12) */
-                &long_fkey F12 EQUAL   &long_fkey F1 N1   &long_fkey F2 N2   &long_fkey F3 N3   &long_fkey F4 N4
-                &kp TAB                &kp Q              &kp W              &kp E              &kp R
-                &kp CAPS               &kp A              &kp S              &kp D              &kp F
-                &kp LSHFT              &kp Z              &kp X              &kp C              &kp V
-                &kp GRAVE              &kp LEFT           &kp RIGHT          &kp BSLH           &long_fkey F5 N5  &kp T  &kp G  &kp B
+                /* ================= LEFT KEYWELL ================= */
+                &kp T      &kp N5
+                &kp G      &kp B
+                &kp F      &kp R
+                &kp V      &kp N4                 &kp S      &kp W
+                &kp RIGHT  &kp LEFT   &kp BSLH    &kp X      &kp N2
+                &kp N3     &kp C      &kp A       &kp N1     &kp EQUAL
+                &kp E      &kp D      &kp Z       &kp Q      &kp TAB
+                                      &kp GRAVE   &kp LSHFT  &kp CAPS
 
-                /* RIGHT KEYWELL (Long press top row for F6-F11) */
-                &long_fkey F7 N7       &long_fkey F8 N8   &long_fkey F9 N9   &long_fkey F10 N0  &long_fkey F11 MINUS
-                &kp Y                  &kp U              &kp I              &kp O              &kp P
-                &kp H                  &kp J              &kp K              &kp L              &kp SEMI
-                &kp N                  &kp M              &kp COMMA          &kp DOT            &kp FSLH
-                &kp SQT                &kp LBKT           &kp RBKT           &kp UP             &kp DOWN          &kp RSHFT
+                /* ================ LEFT THUMB CLUSTER ================ */
+                &kp LCTRL  &kp LALT
+                           &kp HOME   &kp END
+                           &kp BSPC   &kp DEL
+
+                /* ================ RIGHT THUMB CLUSTER ================ */
+                &kp LWIN   &kp RCTRL
+                &kp PG_UP  &kp PG_DN
+                &kp ENTER  &kp SPACE
+
+                /* ================= RIGHT KEYWELL ================= */
+                &kp SQT    &kp RSHFT  &kp RBKT    &kp N6
+                &kp BSLH   &kp P      &kp FSLH    &kp K      &kp I
+                &kp MINUS  &kp N0     &kp SEMI    &kp COMMA  &kp N8
+                &kp N9     &kp DOT    &kp LBKT    &kp DOWN   &kp UP
+                &kp O      &kp L                  &kp N7     &kp M
+                                                  &kp U      &kp J
+                                                  &kp N      &kp H
+                                                             &kp Y
             >;
         };
     };
