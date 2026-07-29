@@ -2,40 +2,54 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    combos {
+        compatible = "zmk,combos";
+
+        /* Press key 0 and key 1 together to unlock ZMK Studio */
+        combo_studio_unlock {
+            timeout-ms = <50>;
+            key-positions = <0 1>;
+            bindings = <&studio_unlock>;
+        };
+
+        /* Press key 0 and key 2 together to enter UF2 bootloader mode */
+        combo_bootloader {
+            timeout-ms = <50>;
+            key-positions = <0 2>;
+            bindings = <&bootloader>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
             bindings = <
-                /* ================= LEFT KEYWELL ================= */
-                &kp T      &kp N5
-                &kp G      &kp B
-                &kp F      &kp R
-                &kp V      &kp N4                 &kp S      &kp W
-                &kp RIGHT  &kp LEFT   &kp BSLH    &kp X      &kp N2
-                &kp N3     &kp C      &kp A       &kp N1     &kp EQUAL
-                &kp E      &kp D      &kp Z       &kp Q      &kp TAB
-                                      &kp GRAVE   &kp LSHFT  &kp CAPS
+                &kp A    &kp B
+                &kp C    &kp D
+                &kp E    &kp F
+                &kp G    &kp H             &kp I    &kp J
+                &kp K    &kp L    &kp M    &kp N    &kp O
+                &kp P    &kp Q    &kp R    &kp S    &kp T
+                &kp U    &kp V    &kp W    &kp X    &kp Y
+                                  &kp Z    &kp N1   &kp N2
 
-                /* ================ LEFT THUMB CLUSTER ================ */
-                &kp LCTRL  &kp LALT
-                           &kp HOME   &kp END
-                           &kp BSPC   &kp DEL
+                &kp N3   &kp N4
+                         &kp N5   &kp N6
+                         &kp N7   &kp N8
 
-                /* ================ RIGHT THUMB CLUSTER ================ */
-                &kp LWIN   &kp RCTRL
-                &kp PG_UP  &kp PG_DN
-                &kp ENTER  &kp SPACE
+                &kp N9   &kp N0
+                         &kp EXCL &kp AT
+                         &kp HASH &kp DLLR
 
-                /* ================= RIGHT KEYWELL ================= */
-                &kp SQT    &kp RSHFT  &kp RBKT    &kp N6
-                &kp BSLH   &kp P      &kp FSLH    &kp K      &kp I
-                &kp MINUS  &kp N0     &kp SEMI    &kp COMMA  &kp N8
-                &kp N9     &kp DOT    &kp LBKT    &kp DOWN   &kp UP
-                &kp O      &kp L                  &kp N7     &kp M
-                                                  &kp U      &kp J
-                                                  &kp N      &kp H
-                                                             &kp Y
+                &kp PERCENT &kp CARET &kp AMPS &kp STAR
+                &kp LPAR    &kp RPAR  &kp MINUS &kp EQUAL &kp PLUS
+                &kp LBKT    &kp RBKT  &kp LBRC  &kp RBRC  &kp BSLH
+                &kp PIPE    &kp SEMI  &kp COLON &kp SQT   &kp DQT
+                &kp COMMA   &kp DOT            &kp FSLH  &kp QUESTION
+                                               &kp LEFT  &kp RIGHT
+                                               &kp UP    &kp DOWN
+                                                         &kp SPACE
             >;
         };
     };
