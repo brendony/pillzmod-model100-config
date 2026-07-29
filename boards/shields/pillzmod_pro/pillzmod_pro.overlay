@@ -1,5 +1,17 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 
+&spi1 {
+    status = "okay";
+
+    shifter: 74hc595@0 {
+        compatible = "zmk,gpio-sr";
+        reg = <0>;
+        spi-max-frequency = <2000000>;
+        #gpio-cells = <2>;
+        gpio-controller;
+    };
+};
+
 / {
     chosen {
         zmk,kscan = &kscan0;
