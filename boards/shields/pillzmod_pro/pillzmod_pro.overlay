@@ -2,7 +2,7 @@
 
 &pro_micro_spi {
     status = "okay";
-    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>; /* Shift Register Latch (RCLK) */
+    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
 
     shifter: 595@0 {
         compatible = "zmk,gpio-595";
@@ -18,7 +18,19 @@
 / {
     chosen {
         zmk,kscan = &kscan0;
-        zmk,matrix_transform = &default_transform;
+        zmk,matrix-transform = &default_transform;
+        zmk,physical-layout = &physical_layout0;
+    };
+
+    aliases {
+        led-caps = &led0; /* Ensure this matches your actual LED node label */
+    };
+
+    physical_layout0: physical_layout_0 {
+        compatible = "zmk,physical-layout";
+        display-name = "Default Layout";
+        transform = <&default_transform>;
+        kscan = <&kscan0>;
     };
 
     default_transform: matrix_transform {
