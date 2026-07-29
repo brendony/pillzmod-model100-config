@@ -17,6 +17,24 @@
 };
 
 / {
+combos {
+        compatible = "zmk,combos";
+
+        /* Press key 0 and key 1 together to unlock ZMK Studio */
+        combo_studio_unlock {
+            timeout-ms = <50>;
+            key-positions = <0 1>;
+            bindings = <&studio_unlock>;
+        };
+
+        /* Press key 0 and key 2 together to enter bootloader */
+        combo_bootloader {
+            timeout-ms = <50>;
+            key-positions = <0 2>;
+            bindings = <&bootloader>;
+        };
+    };
+
     chosen {
         zmk,kscan = &kscan0;
         zmk,physical-layout = &physical_layout0;
