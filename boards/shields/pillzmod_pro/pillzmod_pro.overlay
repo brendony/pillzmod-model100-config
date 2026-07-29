@@ -22,21 +22,34 @@
         zmk,physical-layout = &physical_layout0;
     };
 
-    /* 1. Define the alias pointing to the LED child node */
+    /* Aliases required by leds.c */
     aliases {
         led-caps = &led_caps_node;
+        led-num = &led_num_node;
+        led-scroll = &led_scroll_node;
     };
 
-    /* 2. Define the GPIO LEDs container and child nodes */
+    /* GPIO LEDs definition */
     leds {
         compatible = "gpio-leds";
 
         led_caps_node: led_0 {
-            gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>; /* Adjust pin if different */
+            gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>;
             label = "Caps Lock LED";
+        };
+
+        led_num_node: led_1 {
+            gpios = <&gpio0 16 GPIO_ACTIVE_HIGH>;
+            label = "Num Lock LED";
+        };
+
+        led_scroll_node: led_2 {
+            gpios = <&gpio0 14 GPIO_ACTIVE_HIGH>;
+            label = "Scroll Lock LED";
         };
     };
 
+    /* Physical layout required for ZMK Studio support */
     physical_layout0: physical_layout_0 {
         compatible = "zmk,physical-layout";
         display-name = "Default Layout";
