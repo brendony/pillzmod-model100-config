@@ -22,8 +22,19 @@
         zmk,physical-layout = &physical_layout0;
     };
 
+    /* 1. Define the alias pointing to the LED child node */
     aliases {
-        led-caps = &led0; /* Ensure this matches your actual LED node label */
+        led-caps = &led_caps_node;
+    };
+
+    /* 2. Define the GPIO LEDs container and child nodes */
+    leds {
+        compatible = "gpio-leds";
+
+        led_caps_node: led_0 {
+            gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>; /* Adjust pin if different */
+            label = "Caps Lock LED";
+        };
     };
 
     physical_layout0: physical_layout_0 {
