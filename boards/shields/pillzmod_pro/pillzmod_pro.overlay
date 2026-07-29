@@ -1,14 +1,17 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 
-&spi1 {
+&pro_micro_spi {
     status = "okay";
+    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>; /* Shift Register Latch (RCLK) */
 
-    shifter: 74hc595@0 {
-        compatible = "zmk,gpio-sr";
-        reg = <0>;
-        spi-max-frequency = <2000000>;
-        #gpio-cells = <2>;
+    shifter: 595@0 {
+        compatible = "zmk,gpio-595";
+        status = "okay";
         gpio-controller;
+        spi-max-frequency = <2000000>;
+        reg = <0>;
+        #gpio-cells = <2>;
+        ngpios = <8>;
     };
 };
 
@@ -18,106 +21,72 @@
         zmk,matrix_transform = &default_transform;
     };
 
-    /*
-     * Comprehensive Matrix Transform
-     * Left Keywell  + Left Thumb Cluster
-     * Right Keywell + Right Thumb Cluster
-     */
     default_transform: matrix_transform {
         compatible = "zmk,matrix-transform";
         columns = <13>;
         rows = <13>;
 
         map = <
-            /* ================= LEFT KEYWELL ================= */
-            /* Row 1 (Pin 1):  't' (Pin 9), '5' (Pin 10) */
             RC(0,8)  RC(0,9)
-            /* Row 2 (Pin 2):  'g' (Pin 9), 'b' (Pin 10) */
             RC(1,8)  RC(1,9)
-            /* Row 3 (Pin 3):  'f' (Pin 9), 'r' (Pin 10) */
             RC(2,8)  RC(2,9)
-            /* Row 4 (Pin 4):  'v' (Pin 9), '4' (Pin 10), 's' (Pin 12), 'w' (Pin 13) */
             RC(3,8)  RC(3,9)          RC(3,11) RC(3,12)
-            /* Row 5 (Pin 5):  RIGHT (Pin 9), LEFT (Pin 10), '\' (Pin 11), 'x' (Pin 12), '2' (Pin 13) */
             RC(4,8)  RC(4,9)  RC(4,10) RC(4,11) RC(4,12)
-            /* Row 6 (Pin 6):  '3' (Pin 9), 'c' (Pin 10), 'a' (Pin 11), '1' (Pin 12), '=' (Pin 13) */
             RC(5,8)  RC(5,9)  RC(5,10) RC(5,11) RC(5,12)
-            /* Row 7 (Pin 7):  'e' (Pin 9), 'd' (Pin 10), 'z' (Pin 11), 'q' (Pin 12), TAB (Pin 13) */
             RC(6,8)  RC(6,9)  RC(6,10) RC(6,11) RC(6,12)
-            /* Row 8 (Pin 8):  '`' (Pin 11), LSHIFT (Pin 12), CAPS (Pin 13) */
                               RC(7,10) RC(7,11) RC(7,12)
 
-            /* ================= LEFT THUMB CLUSTER ================= */
-            /* Top 2:   CTRL, ALT */
             RC(0,5)  RC(1,5)
-            /* Mid 2:   HOME, END */
                      RC(2,5)  RC(3,5)
-            /* Bot 2:   BSPC, DELETE */
                      RC(4,5)  RC(5,5)
 
-            /* ================= RIGHT THUMB CLUSTER ================= */
-            /* Top 2:   LWIN, RCTRL */
             RC(0,6)  RC(1,6)
-            /* Mid 2:   PG_UP, PG_DN */
-            RC(2,6)  RC(3,6)
-            /* Bot 2:   ENTER, SPACE */
-            RC(4,6)  RC(5,6)
+                     RC(2,6)  RC(3,6)
+                     RC(4,6)  RC(5,6)
 
-            /* ================= RIGHT KEYWELL ================= */
-            /* Row 6 (Pin 6):  '\'' (Pin 1), RSHIFT (Pin 2), ']' (Pin 3), '6' (Pin 4) */
             RC(5,0)  RC(5,1)  RC(5,2)  RC(5,3)
-            /* Row 7 (Pin 7):  '\' (Pin 1), 'p' (Pin 2), '/' (Pin 3), 'k' (Pin 4), 'i' (Pin 5) */
             RC(6,0)  RC(6,1)  RC(6,2)  RC(6,3)  RC(6,4)
-            /* Row 8 (Pin 8):  '-' (Pin 1), '0' (Pin 2), ';' (Pin 3), ',' (Pin 4), '8' (Pin 5) */
             RC(7,0)  RC(7,1)  RC(7,2)  RC(7,3)  RC(7,4)
-            /* Row 9 (Pin 9):  '9' (Pin 1), '.' (Pin 2), '[' (Pin 3), DOWN (Pin 4), UP (Pin 5) */
             RC(8,0)  RC(8,1)  RC(8,2)  RC(8,3)  RC(8,4)
-            /* Row 10 (Pin 10): 'o' (Pin 1), 'l' (Pin 2), '7' (Pin 4), 'm' (Pin 5) */
             RC(9,0)  RC(9,1)           RC(9,3)  RC(9,4)
-            /* Row 11 (Pin 11): 'u' (Pin 4), 'j' (Pin 5) */
                                        RC(10,3) RC(10,4)
-            /* Row 12 (Pin 12): 'n' (Pin 4), 'h' (Pin 5) */
                                        RC(11,3) RC(11,4)
-            /* Row 13 (Pin 13): 'y' (Pin 5) */
                                                 RC(12,4)
         >;
     };
 
-    /* Kscan Hardware Definition */
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
         label = "KSCAN";
         diode-direction = "col2row";
 
-        /* Rows (Sensors / Inputs) */
         row-gpios
-            = <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> /* Row 0 (Pin 1 / J9 Pin 2 jumper) */
-            , <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> /* Row 1 (Pin 2) */
-            , <&gpio0 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> /* Row 2 (Pin 3) */
-            , <&gpio0 24 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> /* Row 3 (Pin 4) */
-            , <&gpio1 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> /* Row 4 (Pin 5) */
-            , <&gpio0 9  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> /* Row 5 (Pin 6) */
-            , <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> /* Row 6 (Pin 7) */
-            , <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> /* Row 7 (Pin 8) */
-            , <&gpio0 28 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> /* Row 8 (Pin 9) */
-            , <&gpio0 3  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> /* Row 9 (Pin 10) */
-            , <&gpio1 1  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> /* Row 10 (Pin 11 -> J3 Pin 11 Jumper P1.01) */
-            , <&gpio1 2  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> /* Row 11 (Pin 12) */
-            , <&gpio1 7  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> /* Row 12 (Pin 13) */
+            = <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 24 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio1 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 9  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 28 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 3  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio1 1  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio1 2  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio1 7  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
 
-        /* Columns (Strobe Outputs driven by 74HC595 / GPIOs) */
         col-gpios
-            = <&shifter 0 GPIO_ACTIVE_HIGH> /* Col 0 (Pin 1) */
-            , <&shifter 1 GPIO_ACTIVE_HIGH> /* Col 1 (Pin 2) */
-            , <&shifter 2 GPIO_ACTIVE_HIGH> /* Col 2 (Pin 3) */
-            , <&shifter 3 GPIO_ACTIVE_HIGH> /* Col 3 (Pin 4) */
-            , <&shifter 4 GPIO_ACTIVE_HIGH> /* Col 4 (Pin 5 -> J3 Pin 5 Jumper to U2 Pin 7) */
-            , <&shifter 5 GPIO_ACTIVE_HIGH> /* Col 5 (Left Thumb Cluster) */
-            , <&shifter 6 GPIO_ACTIVE_HIGH> /* Col 6 (Right Thumb Cluster / J9 Pin 1) */
-            , <&shifter 7 GPIO_ACTIVE_HIGH> /* Col 7 (Pin 11) */
-            , <&gpio0 31 GPIO_ACTIVE_HIGH>  /* Col 8 (Pin 12) */
-            , <&gpio0 29 GPIO_ACTIVE_HIGH>  /* Col 9 (Pin 13) */
+            = <&shifter 0 GPIO_ACTIVE_HIGH>
+            , <&shifter 1 GPIO_ACTIVE_HIGH>
+            , <&shifter 2 GPIO_ACTIVE_HIGH>
+            , <&shifter 3 GPIO_ACTIVE_HIGH>
+            , <&shifter 4 GPIO_ACTIVE_HIGH>
+            , <&shifter 5 GPIO_ACTIVE_HIGH>
+            , <&shifter 6 GPIO_ACTIVE_HIGH>
+            , <&shifter 7 GPIO_ACTIVE_HIGH>
+            , <&gpio0 31 GPIO_ACTIVE_HIGH>
+            , <&gpio0 29 GPIO_ACTIVE_HIGH>
             ;
     };
 };
