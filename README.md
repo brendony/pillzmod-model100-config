@@ -1,3 +1,78 @@
+# About
+This repo is for my own mod project aimed at updating an old kinesis contured model 100, using the Pillz Mod boards for both the thumb clusters and replacing the main PCB with the Pillz Mod.
+My keyboard keywells do not match the wiring expected by Pillz Mod, so I will need my own firmware, documented here.
+
+Note that this readme file now has my description first, and the original README.md text below in the Appendix.
+
+## What I have
+
+- Kinesis Contoured Model 100 from the year 2000
+- Pillz Mod pro main board with shift register and nice!nano clone 
+- Pillz Mod thumb cluster boards wired as recommended
+
+## What I want
+
+- A working bluetooth keyboard using the kinesis keywells and the pillz mod thumb clusters
+- The possibility to connect the original kinesis function keys up to the pillz mod at a later date. This is not a priority right now because I don't have the correct connectors to achieve this, but I plan to leave the Pillz Mod clear to allow this in future.
+- The keyboard should allow me to access Function key functionality using either long presses of keywell keys, or some sort of Zmk layer
+- I want to be able to use Zmk studio to dynamically alter the layout. This means that the zmk studio unlock key combination must be available using keys from the keywells and/or the thumb cluster
+- I would like to be able to put the nice!nano into firmware update mode by using a key combination too
+- I will need instructions on how to add some jumper wires, because I know that the Pillz Mod pro board does not contain connections for all of sockets J3 and J4 (ie. some of the pins are unconnected), and from my research, my keywells need to use all 13 pins of each socket. These jumper wires should connect from the "dead" pins on J3/J4 to elsewhere on the Pillz Mod board, and should ideally be easy to solder and connect.
+
+## What is not needed
+
+- My keyboard has no LEDs or lighting
+- No physical Function keys connected
+
+
+# Keywell wiring
+I have traced out the keywells using a multimeter as follows - note that this does not match what the Pillz Mod expects. I believe the diode direction is the same as what the Pillz Mod expects:
+
+## Right Keywell
+
+|        | Pin 1 | Pin 2  | Pin 3 | Pin 4 | Pin 5 |
+| ------ | ----- | ------ | ----- | ----- | ----- |
+| Pin 6  | '     | RSHIFT | ]     | 6     |       |
+| Pin 7  | \     | p      | /     | k     | i     |
+| Pin 8  | -     | 0      | ;     | ,     | 8     |
+| Pin 9  | 9     | .      | [     | DN    | UP    |
+| Pin 10 | o     | l      |       | 7     | m     |
+| Pin 11 |       |        |       | u     | j     |
+| Pin 12 |       |        |       | n     | h     |
+| Pin 13 |       |        |       |       | y     |
+
+## Left Keywell
+
+|       | Pin 9 | Pin 10 | Pin 11 | Pin 12 | Pin 13 |
+| ----- | ----- | ------ | ------ | ------ | ------ |
+| Pin 8 |       |        | `      | LSHIFT | CAPS   |
+| Pin 7 | e     | d      | z      | q      | TAB    |
+| Pin 6 | 3     | c      | a      | 1      | =      |
+| Pin 5 | RIGHT | LEFT   | \      | x      | 2      |
+| Pin 4 | v     | 4      |        | s      | w      |
+| Pin 3 | f     | r      |        |        |        |
+| Pin 2 | g     | b      |        |        |        |
+| Pin 1 | t     | 5      |        |        |        |
+
+# Instructions
+
+1. Familiarise yourself with the Zmk firmware source code and documentation, I will be using the latest build
+2. Study the Pillz Mod Pro board schematics and documentation to figure out which pins are the "dead" ones
+3. Figure out how to drive the keywell and thumb clusters using the Pillz Mod Pro boards. I have the capacity to change the order of connection from the keywell to the J3/J4 connectors, but obviously it is easier and less error prone if we can keet the keywell to J3/J4 connectors so that as much as possible, pin 1 maps to pin1, pin 2 to pin 2 etc.
+4. Give me instructions on how to solder jumper wires to cover for the "dead" pins on J3/J4
+5. Update the pillzmod_pro.* files to match what you come up with in 3. and 4. 
+
+From there, I will do the connecting of the jumper wires, and then build/flash new firmware and load it up.
+
+Ask any clarifying questions that you need to, and stop and seek help if you get stuck.
+
+
+
+
+
+---
+# Appendix - original README.md text follows.
+
 # ZMK Configuration for Kinesis Advantage with Pillz Mod Pro + Nice!Nano v2
 
 This repository contains the [ZMK firmware](https://zmk.dev) configuration for **Kinesis Advantage keyboards** modified with the **[Pillz Mod Pro PCB](https://github.com/dcpedit/pillzmod)** and **Nice!Nano v2** wireless controller.
