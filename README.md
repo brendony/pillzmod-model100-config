@@ -17,7 +17,7 @@ Note that this readme file now has my description first, and the original README
 - The keyboard should allow me to access Function key functionality using either long presses of keywell keys, or some sort of Zmk layer
 - I want to be able to use Zmk studio to dynamically alter the layout. This means that the zmk studio unlock key combination must be available using keys from the keywells and/or the thumb cluster
 - I would like to be able to put the nice!nano into firmware update mode by using a key combination too
-- I will need instructions on how to add some jumper wires, because I know that the Pillz Mod pro board does not contain connections for all of sockets J3 and J4 (ie. some of the pins are unconnected), and from my research, my keywells need to use all 13 pins of each socket. These jumper wires should connect from the "dead" pins on J3/J4 to elsewhere on the Pillz Mod board, and should ideally be easy to solder and connect.
+- I will need instructions on how to add some jumper wires, because I know that the Pillz Mod pro board does not contain connections for all pins of sockets J3 and J4 (ie. some of the pins are unconnected), and from my research, my keywells will need to use all 13 pins of each socket. These jumper wires should connect from the "dead" pins on J3/J4 to elsewhere on the Pillz Mod board, and should ideally be easy to solder and connect.
 
 ## What is not needed
 
@@ -26,7 +26,7 @@ Note that this readme file now has my description first, and the original README
 
 
 # Keywell wiring
-I have traced out the keywells using a multimeter as follows - note that this does not match what the Pillz Mod expects. I believe the diode direction is the same as what the Pillz Mod expects:
+I have traced out the keywells using a multimeter as follows - note that this does not match what the stock Pillz Mod expects. I believe the diode direction is the same as what the Pillz Mod expects. Empty cells indicate no connection.
 
 ## Right Keywell
 
@@ -58,9 +58,9 @@ I have traced out the keywells using a multimeter as follows - note that this do
 
 1. Familiarise yourself with the Zmk firmware source code and documentation, I will be using the latest build
 2. Study the Pillz Mod Pro board schematics and documentation to figure out which pins are the "dead" ones
-3. Figure out how to drive the keywell and thumb clusters using the Pillz Mod Pro boards. I have the capacity to change the order of connection from the keywell to the J3/J4 connectors, but obviously it is easier and less error prone if we can keet the keywell to J3/J4 connectors so that as much as possible, pin 1 maps to pin1, pin 2 to pin 2 etc.
-4. Give me instructions on how to solder jumper wires to cover for the "dead" pins on J3/J4
-5. Update the pillzmod_pro.* files to match what you come up with in 3. and 4. 
+3. Figure out how to drive the keywell and thumb clusters using the Pillz Mod Pro boards. I have the capacity to change the order of connection from the keywell to the J3/J4 connectors, but obviously it is easier and less error prone if we can keep the keywell to J3/J4 connectors simple, ie. as much as possible, pin 1 maps to pin1, pin 2 to pin 2 etc.
+4. Give me instructions on how and where to solder jumper wires to cover for the "dead" pins on J3/J4
+5. Update the pillzmod_pro.* files to match what you come up with in 3. and 4. so that I can build new firmware.
 
 From there, I will do the connecting of the jumper wires, and then build/flash new firmware and load it up.
 
